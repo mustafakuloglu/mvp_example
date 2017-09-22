@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MVPExample</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="title">Title</string>
+    <string name="note">Note</string>
+    <string name="ok">OK</string>
+</resources>
