@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
+import com.greendao.mustafa.mvpexample.NoteApp;
 import com.greendao.mustafa.mvpexample.R;
 import com.greendao.mustafa.mvpexample.main.MainActivity;
+import com.greendao.mustafa.mvpexample.model.DaoSession;
 import com.greendao.mustafa.mvpexample.model.NoteModel;
 
 import butterknife.BindView;
@@ -26,8 +28,8 @@ public class NoteActivity extends AppCompatActivity implements NoteActivityView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-
-        presenter = new NoteActivityPresenterImpl(this);
+        DaoSession daoSession = ((NoteApp) getApplication()).getDaoSession();
+        presenter = new NoteActivityPresenterImpl(this, daoSession);
 
         ButterKnife.bind(this);
         Bundle data = getIntent().getExtras();
@@ -39,10 +41,7 @@ public class NoteActivity extends AppCompatActivity implements NoteActivityView 
         }
     }
 
-    @Override
-    public void startMainActivity() {
 
-    }
 
     @OnClick(R.id.btn_ok)
     public void click() {

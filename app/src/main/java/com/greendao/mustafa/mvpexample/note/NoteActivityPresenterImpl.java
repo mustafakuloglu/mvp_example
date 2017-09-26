@@ -1,6 +1,5 @@
 package com.greendao.mustafa.mvpexample.note;
 
-import com.greendao.mustafa.mvpexample.NoteApp;
 import com.greendao.mustafa.mvpexample.model.DaoSession;
 import com.greendao.mustafa.mvpexample.model.NoteModel;
 import com.greendao.mustafa.mvpexample.model.NoteModelDao;
@@ -12,10 +11,11 @@ import com.greendao.mustafa.mvpexample.model.NoteModelDao;
 public class NoteActivityPresenterImpl implements NoteActivityPresenter {
     NoteActivityView view;
     NoteModelDao noteDao;
+    DaoSession daoSession;
 
-    public NoteActivityPresenterImpl(NoteActivity view) {
+    public NoteActivityPresenterImpl(NoteActivityView view, DaoSession daoSession) {
         this.view = view;
-        DaoSession daoSession = ((NoteApp) view.getApplication()).getDaoSession();
+        this.daoSession = daoSession;
         noteDao = daoSession.getNoteModelDao();
     }
 

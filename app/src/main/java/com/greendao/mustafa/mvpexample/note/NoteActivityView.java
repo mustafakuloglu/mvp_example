@@ -5,5 +5,4 @@ package com.greendao.mustafa.mvpexample.note;
  */
 
 interface NoteActivityView {
-    void startMainActivity();
 }

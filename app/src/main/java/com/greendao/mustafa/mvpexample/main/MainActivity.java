@@ -17,14 +17,16 @@ import com.greendao.mustafa.mvpexample.note.NoteActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
 
     NoteModelDao noteDao;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
     private List<NoteModel> noteList = new ArrayList<>();
-    private RecyclerView recyclerView;
     private MainActivityAdapter mAdapter;
     private MainActivityPresenter presenter;
 
@@ -34,22 +36,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         setContentView(R.layout.activity_main);
 
         DaoSession daoSession = ((NoteApp) getApplication()).getDaoSession();
-        noteDao = daoSession.getNoteModelDao();
 
+        presenter = new MainActivityPresenterImpl(this, daoSession);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        presenter.fillList();
 
         ButterKnife.bind(this);
-
-        fillLiist();
 
         mAdapter = new MainActivityAdapter(noteList, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
-        presenter = new MainActivityPresenterImpl(this);
 
 
     }
@@ -60,14 +58,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         presenter.addNote();
     }
 
-    private void fillLiist() {
-        noteList = noteDao.loadAll();
-    }
+
 
     @Override
     public void startAddNoteActivity() {
         Intent intent = new Intent(this, NoteActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void fillList(List<NoteModel> noteList) {
+        this.noteList = noteList;
     }
 
     @OnClick(R.id.myFAB)

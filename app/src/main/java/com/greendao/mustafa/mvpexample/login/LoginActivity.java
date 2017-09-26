@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityVie
         presenter.isRemember(sharedPreferences);
     }
 
+
     @OnClick(R.id.btn_login)
     public void onclick() {
         presenter.login(edtUserName.getText().toString(), edtPassword.getText().toString(), rememberMe.isChecked(), sharedPreferences);
